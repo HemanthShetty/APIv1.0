@@ -1,0 +1,41 @@
+type: object
+properties:
+  expiry_age:
+    type: integer
+  face_amt_max:
+    type: integer
+  face_amt_min:
+    type: integer
+  issue_age_max:
+    type: integer
+  issue_age_min:
+    type: integer
+  line_of_business:
+    type: string
+  premium_modes:
+    type: array
+    items:
+      type: string
+  product_desc:
+    type: string
+  product_id:
+    type: string
+  product_title:
+    type: string
+  product_type:
+    type: string
+  rider_id:
+    type: array
+    items: {}
+required:
+- expiry_age
+- face_amt_max
+- face_amt_min
+- issue_age_max
+- issue_age_min
+- line_of_business
+- premium_modes
+- product_desc
+- product_id
+- product_title
+- product_type

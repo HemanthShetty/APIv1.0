@@ -1,0 +1,20 @@
+x-swagger-router-controller: partnerController
+get:
+  description: Returns New York Life Terms and Conditions back to the caller
+  operationId: getTermsAndConditions
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  - application/pdf
+  responses:
+    "200":
+        description: Successful response
+        schema:
+          type: string
+          format: binary
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"

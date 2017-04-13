@@ -1,0 +1,20 @@
+x-swagger-router-controller: userController
+post:
+  description: Creates a new user from a third party app
+  operationId: createUser
+  parameters:
+    - name: user
+      in: body
+      description: User
+      required: true
+      schema:
+        $ref: '#/definitions/User'
+  responses:
+    "204":
+      description: Message on user creation
+      schema:
+        $ref: '#/definitions/SuccessResponse'
+    default:
+      description: unexpected error
+      schema:
+        $ref: '#/definitions/ErrorResponse'

@@ -1,0 +1,45 @@
+x-swagger-router-controller: recommendationController
+get:
+  description: Get the recommendation input data for a user.
+  operationId: getRecommendationData
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user for whom the recommendation data has to be fetched
+  responses:
+    "200":
+      description: Success
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/RecommendationInput"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"
+put:
+  description: Input the recommendation data that can be used to obtain an insurance quote from NYL.
+  operationId: createRecommendationData
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user for whom the recommendation data is to be created
+    - name: recommendation
+      in: body
+      description: Recommendation
+      required: true
+      schema:
+        $ref: '#/definitions/RecommendationInput'
+  responses:
+    "200":
+      description: Success message on creating recommendation input data
+      schema:
+        $ref: '#/definitions/SuccessResponse'
+    default:
+      description: Error while creating recommendation input data
+      schema:
+        $ref: '#/definitions/ErrorResponse'

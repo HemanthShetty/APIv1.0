@@ -1,0 +1,22 @@
+/users/{userId}:
+   $ref: ./User.yaml
+/users:
+   $ref: ./UserCreate.yaml
+/users/{userId}/recommendation-input:
+   $ref: ./RecommendationInput.yaml
+/users/{userId}/quotes:
+   $ref: ./Quote.yaml
+/users/{userId}/applications:
+   $ref: ./ApplicationCreate.yaml
+/users/{userId}/applications/{applicationId}:
+   $ref: ./Application.yaml
+/partners/application/terms-and-conditions:
+   $ref: ./TermsAndConditions.yaml
+/users/{userId}/applications/{applicationId}/insurance-agreement:
+   $ref: ./ApplicationForm.yaml
+/partners/products/{productId}:
+   $ref: ./Product.yaml
+/users/{userId}/policies:
+   $ref: ./Policy.yaml
+/swagger:
+   x-swagger-pipe: swagger_raw

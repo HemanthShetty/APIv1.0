@@ -1,0 +1,75 @@
+x-swagger-router-controller: applicationController
+delete:
+  description: Delete the insurance application created for the specific user
+  operationId: deleteApplication
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+    - name: applicationId
+      in: path
+      type: string
+      required: true
+      description: The id of the application created
+  responses:
+    "204":
+      description: No content returned on deletion
+get:
+  description: Returns the application details of the user
+  # used as the method name of the controller
+  operationId: getApplication
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+    - name: applicationId
+      in: path
+      type: string
+      required: true
+      description: The id of the application created
+  responses:
+    "200":
+      description: Success
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/Application"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"
+
+put:
+  description: Edit the application details of the user
+  operationId: updateApplication
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+    - name: applicationId
+      in: path
+      type: string
+      required: true
+      description: The id of the application to be edited
+    - name: application
+      in: body
+      description: Application
+      required: true
+      schema:
+        $ref: '#/definitions/Application'
+  responses:
+    "200":
+      description: Success
+      schema:
+        $ref: "#/definitions/SuccessResponse"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"

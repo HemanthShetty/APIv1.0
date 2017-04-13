@@ -1,0 +1,18 @@
+User:
+   $ref: ./User.yaml
+UserDetails:
+   $ref: ./UserDetails.yaml
+RecommendationInput:
+   $ref: ./RecommendationInput.yaml
+Quote:
+   $ref: ./Quote.yaml
+Application:
+   $ref: ./Application.yaml
+Product:
+   $ref: ./Product.yaml
+PolicyCollection:
+   $ref: ./PolicyCollection.yaml
+ErrorResponse:
+   $ref: ./Error.yaml
+SuccessResponse:
+   $ref: ./Success.yaml 

@@ -1,0 +1,121 @@
+type: object
+properties:
+  ben_details:
+    type: array
+    items:
+      type: object
+      properties:
+        ben_address:
+          type: object
+          properties:
+            add_line_1:
+              type: string
+            add_line_2:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+          required:
+          - add_line_1
+          - add_line_2
+          - city
+          - country
+          - state
+          - zip
+        ben_email:
+          type: string
+        ben_fname:
+          type: string
+        ben_level:
+          type: string
+        ben_lname:
+          type: string
+        ben_mname:
+          type: string
+        ben_relation:
+          type: string
+        ben_share:
+          type: integer
+        ben_ssn:
+          type: string
+        ben_type:
+          type: string
+        phone:
+          type: array
+          items:
+            type: object
+            properties:
+              number:
+                type: string
+              type:
+                type: string
+            required:
+            - number
+            - type
+      required:
+      - ben_address
+      - ben_fname
+      - ben_level
+      - ben_lname
+      - ben_relation
+      - ben_share
+      - ben_ssn
+      - ben_type
+      - phone
+  coverage:
+    type: string
+  health_report:
+    type: object
+    properties:
+      arthritis:
+        type: boolean
+      back_trouble_disorder:
+        type: boolean
+      blood_disorder:
+        type: boolean
+      epilepsy:
+        type: boolean
+      genitourinary_disorder:
+        type: boolean
+      gynecological_disorder:
+        type: boolean
+      hepatitis:
+        type: boolean
+      unexplained_weight_loss:
+        type: boolean
+    required:
+    - arthritis
+    - back_trouble_disorder
+    - blood_disorder
+    - epilepsy
+    - genitourinary_disorder
+    - gynecological_disorder
+    - hepatitis
+    - unexplained_weight_loss
+  payment_frequency:
+    type: string
+  premium:
+    type: string
+  product_id:
+    type: string
+  rider_id:
+    type: array
+    items: {}
+  term:
+    type: string
+  web_hook:
+    type: string
+required:
+- ben_details
+- coverage
+- health_report
+- payment_frequency
+- premium
+- product_id
+- term
+- web_hook

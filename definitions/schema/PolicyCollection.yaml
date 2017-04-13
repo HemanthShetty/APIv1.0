@@ -1,0 +1,73 @@
+type: object
+properties:
+  policies:
+    type: array
+    items:
+      type: object
+      properties:
+        application_id:
+          type: string
+        ben_details:
+          type: array
+          items:
+            type: object
+            properties:
+              ben_share:
+                type: integer
+              first_name:
+                type: string
+              last_name:
+                type: string
+              relationship:
+                type: string
+            required:
+              - relationship
+              - last_name
+              - ben_share
+              - first_name
+        contract_rate:
+          type: integer
+        coverage:
+          type: integer
+        cstr_id:
+          type: string
+        expiration_date:
+          type: string
+        issue_state:
+          type: string
+        owner_id:
+          type: string
+        payment_frequency:
+          type: integer
+        policy_id:
+          type: string
+        policy_status:
+          type: string
+        premium:
+          type: integer
+        product_id:
+          type: string
+        rider_id:
+          type: array
+          items:
+           type: integer
+        is_temporary:
+          type: boolean
+        term:
+          type: integer
+      required:
+      - application_id
+      - contract_rate
+      - coverage
+      - cstr_id
+      - expiration_date
+      - issue_state
+      - owner_id
+      - payment_frequency
+      - policy_id
+      - policy_status
+      - premium
+      - product_id
+      - term
+required:
+- policies

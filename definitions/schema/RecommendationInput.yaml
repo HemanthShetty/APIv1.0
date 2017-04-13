@@ -1,0 +1,67 @@
+type: object
+properties:
+  annual_income:
+    type: integer
+  asset_data:
+    type: object
+    properties:
+      existing_insurance:
+        type: integer
+      liquid_cash:
+        type: integer
+      long_term_assets:
+        type: integer
+    required:
+    - existing_insurance
+    - liquid_cash
+    - long_term_assets
+  children_data:
+    type: array
+    items:
+      type: object
+      properties:
+        age:
+          type: integer
+        college_type:
+          type: string
+        monthly_living_expense:
+          type: integer
+      required:
+      - age
+      - monthly_living_expense
+  debt_data:
+    type: array
+    items:
+      type: object
+      properties:
+        amount:
+          type: integer
+        debt_type:
+          type: string
+        term:
+          type: integer
+      required:
+      - amount
+      - debt_type
+      - term
+  financial_cushion_years:
+    type: integer
+  height_feet:
+    type: integer
+  height_inch:
+    type: integer
+  investment_category:
+    type: string
+  smoking:
+    type: boolean
+  weight:
+    type: integer
+required:
+- annual_income
+- asset_data
+- financial_cushion_years
+- height_feet
+- height_inch
+- investment_category
+- smoking
+- weight

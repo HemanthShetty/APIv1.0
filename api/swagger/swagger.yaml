@@ -1,0 +1,867 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: NYL Labs API
+host: 'localhost:10010'
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  '/users/{userId}':
+    x-swagger-router-controller: userController
+    get:
+      description: Returns User Details to the caller
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      description: >-
+        Delete The specified user when he doesn't buy a policy or tries to
+        create multiple accounts
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+      responses:
+        '204':
+          description: No content returned on deletion
+    patch:
+      description: Update the User Details
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+        - name: user
+          in: body
+          description: User Update Details
+          required: true
+          schema:
+            $ref: '#/definitions/UserDetails'
+      responses:
+        '200':
+          description: Success message on updating User Details
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error while creating recommendation input data
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /users:
+    x-swagger-router-controller: userController
+    post:
+      description: Creates a new user from a third party app
+      operationId: createUser
+      parameters:
+        - name: user
+          in: body
+          description: User
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '204':
+          description: Message on user creation
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/recommendation-input':
+    x-swagger-router-controller: recommendationController
+    get:
+      description: Get the recommendation input data for a user.
+      operationId: getRecommendationData
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: >-
+            The id of the user for whom the recommendation data has to be
+            fetched
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/RecommendationInput'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: >-
+        Input the recommendation data that can be used to obtain an insurance
+        quote from NYL.
+      operationId: createRecommendationData
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user for whom the recommendation data is to be created
+        - name: recommendation
+          in: body
+          description: Recommendation
+          required: true
+          schema:
+            $ref: '#/definitions/RecommendationInput'
+      responses:
+        '200':
+          description: Success message on creating recommendation input data
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error while creating recommendation input data
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/quotes':
+    x-swagger-router-controller: quoteController
+    get:
+      description: >-
+        Obtain an insurance product recommendation and a quote for a particular
+        user.
+      operationId: getQuote
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user for whom the recommendation data is to be created
+      responses:
+        '200':
+          description: Recommended Products
+          schema:
+            $ref: '#/definitions/Quote'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/applications':
+    x-swagger-router-controller: applicationController
+    post:
+      description: Input the application data that can be used to create an application ID.
+      operationId: createApplication
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user for whom the application data is to be created
+        - name: application
+          in: body
+          description: Application
+          required: true
+          schema:
+            $ref: '#/definitions/Application'
+      responses:
+        '200':
+          description: Success message on submiting application input data
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error while submitting application input data
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/applications/{applicationId}':
+    x-swagger-router-controller: applicationController
+    delete:
+      description: Delete the insurance application created for the specific user
+      operationId: deleteApplication
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+        - name: applicationId
+          in: path
+          type: string
+          required: true
+          description: The id of the application created
+      responses:
+        '204':
+          description: No content returned on deletion
+    get:
+      description: Returns the application details of the user
+      operationId: getApplication
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+        - name: applicationId
+          in: path
+          type: string
+          required: true
+          description: The id of the application created
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Application'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      description: Edit the application details of the user
+      operationId: updateApplication
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+        - name: applicationId
+          in: path
+          type: string
+          required: true
+          description: The id of the application to be edited
+        - name: application
+          in: body
+          description: Application
+          required: true
+          schema:
+            $ref: '#/definitions/Application'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /partners/application/terms-and-conditions:
+    x-swagger-router-controller: partnerController
+    get:
+      description: Returns New York Life Terms and Conditions back to the caller
+      operationId: getTermsAndConditions
+      consumes:
+        - application/json
+      produces:
+        - application/json
+        - application/pdf
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: string
+            format: binary
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/applications/{applicationId}/insurance-agreement':
+    x-swagger-router-controller: applicationController
+    post:
+      description: >-
+        Save PDF document that contains customer's signature on NYL life
+        Insurance Application
+      operationId: saveApplicationForm
+      consumes:
+        - application/pdf
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user
+        - name: applicationId
+          in: path
+          type: string
+          required: true
+          description: >-
+            The id of the application for which signed insurance application
+            form has to be saved
+        - name: file
+          in: body
+          description: The uploaded signed terms and conditions document
+          required: true
+          schema:
+            type: string
+            format: binary
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/partners/products/{productId}':
+    x-swagger-router-controller: partnerController
+    get:
+      description: Returns the details of the specific product back to the partner
+      operationId: getProduct
+      parameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+          description: The id of the product
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  '/users/{userId}/policies':
+    x-swagger-router-controller: policyController
+    get:
+      description: Obtain the collection of all policies for a particular user.
+      operationId: getUserPolicies
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          required: true
+          description: The id of the user for whom we have to fetch all the policies
+      responses:
+        '200':
+          description: Collection of policies for a given user
+          schema:
+            $ref: '#/definitions/PolicyCollection'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /swagger:
+    x-swagger-pipe: swagger_raw
+definitions:
+  User:
+    type: object
+    properties:
+      address:
+        type: object
+        properties:
+          add_line_1:
+            type: string
+          add_line_2:
+            type: string
+          city:
+            type: string
+          country:
+            type: string
+          state:
+            type: string
+          zip:
+            type: string
+        required:
+          - add_line_1
+          - add_line_2
+          - city
+          - country
+          - state
+          - zip
+      date_of_birth:
+        type: string
+      dl_dtls:
+        type: object
+        properties:
+          date_of_birth:
+            type: string
+          dl_number:
+            type: string
+          first_name:
+            type: string
+          last_name:
+            type: string
+          middle_name:
+            type: string
+        required:
+          - date_of_birth
+          - dl_number
+          - first_name
+          - last_name
+          - middle_name
+      email_id:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      phone:
+        type: array
+        items:
+          type: object
+          properties:
+            number:
+              type: string
+            type:
+              type: string
+          required:
+            - number
+            - type
+      ssn:
+        type: string
+      user_id:
+        type: string
+  UserDetails:
+    type: object
+    properties:
+      address:
+        type: object
+        properties:
+          add_line_1:
+            type: string
+          add_line_2:
+            type: string
+          city:
+            type: string
+          country:
+            type: string
+          state:
+            type: string
+          zip:
+            type: string
+        required:
+          - add_line_1
+          - add_line_2
+          - city
+          - country
+          - state
+          - zip
+      date_of_birth:
+        type: string
+      dl_dtls:
+        type: object
+        properties:
+          date_of_birth:
+            type: string
+          dl_number:
+            type: string
+          first_name:
+            type: string
+          last_name:
+            type: string
+          middle_name:
+            type: string
+        required:
+          - date_of_birth
+          - dl_number
+          - first_name
+          - last_name
+          - middle_name
+      email_id:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      phone:
+        type: array
+        items:
+          type: object
+          properties:
+            number:
+              type: string
+            type:
+              type: string
+          required:
+            - number
+            - type
+      ssn:
+        type: string
+  RecommendationInput:
+    type: object
+    properties:
+      annual_income:
+        type: integer
+      asset_data:
+        type: object
+        properties:
+          existing_insurance:
+            type: integer
+          liquid_cash:
+            type: integer
+          long_term_assets:
+            type: integer
+        required:
+          - existing_insurance
+          - liquid_cash
+          - long_term_assets
+      children_data:
+        type: array
+        items:
+          type: object
+          properties:
+            age:
+              type: integer
+            college_type:
+              type: string
+            monthly_living_expense:
+              type: integer
+          required:
+            - age
+            - monthly_living_expense
+      debt_data:
+        type: array
+        items:
+          type: object
+          properties:
+            amount:
+              type: integer
+            debt_type:
+              type: string
+            term:
+              type: integer
+          required:
+            - amount
+            - debt_type
+            - term
+      financial_cushion_years:
+        type: integer
+      height_feet:
+        type: integer
+      height_inch:
+        type: integer
+      investment_category:
+        type: string
+      smoking:
+        type: boolean
+      weight:
+        type: integer
+    required:
+      - annual_income
+      - asset_data
+      - financial_cushion_years
+      - height_feet
+      - height_inch
+      - investment_category
+      - smoking
+      - weight
+  Quote:
+    type: object
+    properties:
+      recommended_products:
+        type: array
+        items:
+          type: object
+          properties:
+            product_id:
+              type: string
+            product_title:
+              type: string
+            product_description:
+              type: string
+            product_discount_info:
+              type: string
+            product_type:
+              type: string
+            product_coverage:
+              type: integer
+            product_premium:
+              type: integer
+            product_term:
+              type: integer
+            product_question:
+              type: array
+              items:
+                type: string
+            product_category:
+              type: string
+          required:
+            - product_id
+            - product_title
+            - product_description
+            - product_discount_info
+            - product_type
+            - product_coverage
+            - product_premium
+            - product_term
+            - product_question
+            - product_category
+    required:
+      - recommended_products
+  Application:
+    type: object
+    properties:
+      ben_details:
+        type: array
+        items:
+          type: object
+          properties:
+            ben_address:
+              type: object
+              properties:
+                add_line_1:
+                  type: string
+                add_line_2:
+                  type: string
+                city:
+                  type: string
+                country:
+                  type: string
+                state:
+                  type: string
+                zip:
+                  type: string
+              required:
+                - add_line_1
+                - add_line_2
+                - city
+                - country
+                - state
+                - zip
+            ben_email:
+              type: string
+            ben_fname:
+              type: string
+            ben_level:
+              type: string
+            ben_lname:
+              type: string
+            ben_mname:
+              type: string
+            ben_relation:
+              type: string
+            ben_share:
+              type: integer
+            ben_ssn:
+              type: string
+            ben_type:
+              type: string
+            phone:
+              type: array
+              items:
+                type: object
+                properties:
+                  number:
+                    type: string
+                  type:
+                    type: string
+                required:
+                  - number
+                  - type
+          required:
+            - ben_address
+            - ben_fname
+            - ben_level
+            - ben_lname
+            - ben_relation
+            - ben_share
+            - ben_ssn
+            - ben_type
+            - phone
+      coverage:
+        type: string
+      health_report:
+        type: object
+        properties:
+          arthritis:
+            type: boolean
+          back_trouble_disorder:
+            type: boolean
+          blood_disorder:
+            type: boolean
+          epilepsy:
+            type: boolean
+          genitourinary_disorder:
+            type: boolean
+          gynecological_disorder:
+            type: boolean
+          hepatitis:
+            type: boolean
+          unexplained_weight_loss:
+            type: boolean
+        required:
+          - arthritis
+          - back_trouble_disorder
+          - blood_disorder
+          - epilepsy
+          - genitourinary_disorder
+          - gynecological_disorder
+          - hepatitis
+          - unexplained_weight_loss
+      payment_frequency:
+        type: string
+      premium:
+        type: string
+      product_id:
+        type: string
+      rider_id:
+        type: array
+        items: {}
+      term:
+        type: string
+      web_hook:
+        type: string
+    required:
+      - ben_details
+      - coverage
+      - health_report
+      - payment_frequency
+      - premium
+      - product_id
+      - term
+      - web_hook
+  Product:
+    type: object
+    properties:
+      expiry_age:
+        type: integer
+      face_amt_max:
+        type: integer
+      face_amt_min:
+        type: integer
+      issue_age_max:
+        type: integer
+      issue_age_min:
+        type: integer
+      line_of_business:
+        type: string
+      premium_modes:
+        type: array
+        items:
+          type: string
+      product_desc:
+        type: string
+      product_id:
+        type: string
+      product_title:
+        type: string
+      product_type:
+        type: string
+      rider_id:
+        type: array
+        items: {}
+    required:
+      - expiry_age
+      - face_amt_max
+      - face_amt_min
+      - issue_age_max
+      - issue_age_min
+      - line_of_business
+      - premium_modes
+      - product_desc
+      - product_id
+      - product_title
+      - product_type
+  PolicyCollection:
+    type: object
+    properties:
+      policies:
+        type: array
+        items:
+          type: object
+          properties:
+            application_id:
+              type: string
+            ben_details:
+              type: array
+              items:
+                type: object
+                properties:
+                  ben_share:
+                    type: integer
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  relationship:
+                    type: string
+                required:
+                  - relationship
+                  - last_name
+                  - ben_share
+                  - first_name
+            contract_rate:
+              type: integer
+            coverage:
+              type: integer
+            cstr_id:
+              type: string
+            expiration_date:
+              type: string
+            issue_state:
+              type: string
+            owner_id:
+              type: string
+            payment_frequency:
+              type: integer
+            policy_id:
+              type: string
+            policy_status:
+              type: string
+            premium:
+              type: integer
+            product_id:
+              type: string
+            rider_id:
+              type: array
+              items:
+                type: integer
+            is_temporary:
+              type: boolean
+            term:
+              type: integer
+          required:
+            - application_id
+            - contract_rate
+            - coverage
+            - cstr_id
+            - expiration_date
+            - issue_state
+            - owner_id
+            - payment_frequency
+            - policy_id
+            - policy_status
+            - premium
+            - product_id
+            - term
+    required:
+      - policies
+  ErrorResponse:
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: number
+      metadata:
+        type: object
+  SuccessResponse:
+    required:
+      - success
+    properties:
+      success:
+        type: boolean

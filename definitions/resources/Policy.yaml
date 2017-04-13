@@ -1,0 +1,21 @@
+x-swagger-router-controller: policyController
+get:
+  description: Obtain the collection of all policies for a particular user.
+  operationId: getUserPolicies
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user for whom we have to fetch all the policies
+  responses:
+    "200":
+      description: Collection of policies for a given user
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/PolicyCollection"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"

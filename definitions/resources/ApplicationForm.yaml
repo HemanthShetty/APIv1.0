@@ -1,0 +1,36 @@
+x-swagger-router-controller: applicationController
+post:
+  description: Save PDF document that contains customer's signature on NYL life Insurance Application
+  operationId: saveApplicationForm
+  consumes:
+    - application/pdf
+  produces:
+    - application/json
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+    - name: applicationId
+      in: path
+      type: string
+      required: true
+      description: The id of the application for which signed insurance application form has to be saved
+    - name: file
+      in: body
+      description: The uploaded signed terms and conditions document
+      required: true
+      schema:
+        type: string
+        format: binary
+  responses:
+    "200":
+        description: Successful response
+        schema:
+          $ref: '#/definitions/SuccessResponse'
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"

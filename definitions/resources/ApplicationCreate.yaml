@@ -1,0 +1,25 @@
+x-swagger-router-controller: applicationController
+post:
+  description: Input the application data that can be used to create an application ID.
+  operationId: createApplication
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user for whom the application data is to be created
+    - name: application
+      in: body
+      description: Application
+      required: true
+      schema:
+        $ref: '#/definitions/Application'
+  responses:
+    "200":
+      description: Success message on submiting application input data
+      schema:
+        $ref: '#/definitions/SuccessResponse'
+    default:
+      description: Error while submitting application input data
+      schema:
+        $ref: '#/definitions/ErrorResponse'

@@ -1,0 +1,7 @@
+properties:
+  message:
+    type: string
+  errorCode:
+    type: number
+  metadata:
+    type: object

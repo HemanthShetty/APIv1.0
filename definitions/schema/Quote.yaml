@@ -1,0 +1,42 @@
+type: object
+properties:
+  recommended_products:
+    type: array
+    items:
+      type: object
+      properties:
+        product_id:
+          type: string
+        product_title:
+          type: string
+        product_description:
+          type: string
+        product_discount_info:
+          type: string
+        product_type:
+          type: string
+        product_coverage:
+          type: integer
+        product_premium:
+          type: integer
+        product_term:
+          type: integer
+        product_question:
+          type: array
+          items:
+            type: string
+        product_category:
+          type: string
+      required:
+      - product_id
+      - product_title
+      - product_description
+      - product_discount_info
+      - product_type
+      - product_coverage
+      - product_premium
+      - product_term
+      - product_question
+      - product_category
+required:
+- recommended_products

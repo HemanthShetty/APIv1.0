@@ -1,0 +1,58 @@
+x-swagger-router-controller: userController
+get:
+  description: Returns User Details to the caller
+  # used as the method name of the controller
+  operationId: getUser
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+  responses:
+    "200":
+      description: Success
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/User"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"
+delete:
+  description: Delete The specified user when he doesn't buy a policy or tries to create multiple accounts
+  operationId: deleteUser
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+  responses:
+    "204":
+      description: No content returned on deletion
+patch:
+  description: Update the User Details
+  operationId: updateUser
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user
+    - name: user
+      in: body
+      description: User Update Details
+      required: true
+      schema:
+        $ref: '#/definitions/UserDetails'
+  responses:
+    "200":
+      description: Success message on updating User Details
+      schema:
+        $ref: '#/definitions/SuccessResponse'
+    default:
+      description: Error while creating recommendation input data
+      schema:
+        $ref: '#/definitions/ErrorResponse'

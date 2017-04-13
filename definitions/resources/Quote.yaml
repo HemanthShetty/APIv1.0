@@ -1,0 +1,21 @@
+x-swagger-router-controller: quoteController
+get:
+  description: Obtain an insurance product recommendation and a quote for a particular user.
+  operationId: getQuote
+  parameters:
+    - name: userId
+      in: path
+      type: string
+      required: true
+      description: The id of the user for whom the recommendation data is to be created
+  responses:
+    "200":
+      description: Recommended Products
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/Quote"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"

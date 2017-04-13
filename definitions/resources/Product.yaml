@@ -1,0 +1,22 @@
+x-swagger-router-controller: partnerController
+get:
+  description: Returns the details of the specific product back to the partner
+  # used as the method name of the controller
+  operationId: getProduct
+  parameters:
+    - name: productId
+      in: path
+      type: string
+      required: true
+      description: The id of the product
+  responses:
+    "200":
+      description: Success
+      schema:
+        # a pointer to a definition
+        $ref: "#/definitions/Product"
+    # responses may fall through to errors
+    default:
+      description: Error
+      schema:
+        $ref: "#/definitions/ErrorResponse"
