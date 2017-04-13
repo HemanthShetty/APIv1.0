@@ -1,1 +1,1 @@
-# Swagger Node API Project for NYL Labs
+# Demo Swagger Node API Project 
